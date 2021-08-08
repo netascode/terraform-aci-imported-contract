@@ -1,9 +1,15 @@
-resource "aci_rest" "fvTenant" {
-  dn         = "uni/tn-${var.name}"
-  class_name = "fvTenant"
+resource "aci_rest" "vzCPIf" {
+  dn         = "uni/tn-${var.tenant}/cif-${var.name}"
+  class_name = "vzCPIf"
   content = {
-    name      = var.name
-    nameAlias = var.alias
-    descr     = var.description
+    name = var.name
+  }
+}
+
+resource "aci_rest" "vzRsIf" {
+  dn         = "${aci_rest.vzCPIf.id}/rsif"
+  class_name = "vzRsIf"
+  content = {
+    tDn = "uni/tn-${var.tenant_source}/brc-${var.contract}"
   }
 }

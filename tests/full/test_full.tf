@@ -11,38 +11,48 @@ terraform {
   }
 }
 
+resource "aci_rest" "fvTenant" {
+  dn         = "uni/tn-TF"
+  class_name = "fvTenant"
+}
+
 module "main" {
   source = "../.."
 
-  name        = "ABC"
-  alias       = "ALIAS"
-  description = "DESCR"
+  tenant        = aci_rest.fvTenant.content.name
+  name          = "CON1"
+  contract      = "CON1"
+  tenant_source = "DEF"
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "vzCPIf" {
+  dn = "uni/tn-${aci_rest.fvTenant.content.name}/cif-${module.main.name}"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "vzCPIf" {
+  component = "vzCPIf"
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
+    got         = data.aci_rest.vzCPIf.content.name
+    want        = module.main.name
   }
+}
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = "ALIAS"
-  }
+data "aci_rest" "vzRsIf" {
+  dn = "${data.aci_rest.vzCPIf.id}/rsif"
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = "DESCR"
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "vzRsIf" {
+  component = "vzRsIf"
+
+  equal "tDn" {
+    description = "tDn"
+    got         = data.aci_rest.vzRsIf.content.tDn
+    want        = "uni/tn-DEF/brc-CON1"
   }
 }

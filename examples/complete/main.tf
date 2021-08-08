@@ -1,7 +1,8 @@
-module "aci_scaffolding" {
-  source = "netascode/scaffolding/aci"
+module "aci_imported_contract" {
+  source = "netascode/imported_contract/aci"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  tenant        = "ABC"
+  name          = "CON1"
+  contract      = "CON1"
+  tenant_source = "DEF"
 }

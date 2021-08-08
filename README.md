@@ -1,22 +1,23 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-imported-contract/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-imported-contract/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI Imported Contract Module
 
-Description
+ACI Imported Contract
 
 Location in GUI:
-`Tenants` » `XXX`
+`Tenants` » `XXX` » `Contracts` » `Imported`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source = "netascode/scaffolding/aci"
+module "aci_imported_contract" {
+  source = "netascode/imported_contract/aci"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  tenant        = "ABC"
+  name          = "CON1"
+  contract      = "CON1"
+  tenant_source = "DEF"
 }
 
 ```
@@ -38,20 +39,22 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_tenant"></a> [tenant](#input\_tenant) | Tenant name. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Imported contract name. | `string` | n/a | yes |
+| <a name="input_contract"></a> [contract](#input\_contract) | Source contract name. | `string` | n/a | yes |
+| <a name="input_tenant_source"></a> [tenant\_source](#input\_tenant\_source) | Source Ccntract tenant name. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `vzCPIf` object. |
+| <a name="output_name"></a> [name](#output\_name) | Imported contract name. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.vzCPIf](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.vzRsIf](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->
