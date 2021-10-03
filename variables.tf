@@ -18,22 +18,22 @@ variable "name" {
   }
 }
 
-variable "contract" {
-  description = "Source contract name."
+variable "source_tenant" {
+  description = "Source contract tenant name."
   type        = string
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.contract))
+    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.source_tenant))
     error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
   }
 }
 
-variable "tenant_source" {
-  description = "Source Ccntract tenant name."
+variable "source_contract" {
+  description = "Source contract name."
   type        = string
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.tenant_source))
+    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.source_contract))
     error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
   }
 }

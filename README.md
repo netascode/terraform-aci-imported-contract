@@ -12,12 +12,13 @@ Location in GUI:
 
 ```hcl
 module "aci_imported_contract" {
-  source = "netascode/imported_contract/aci"
+  source  = "netascode/imported_contract/aci"
+  version = ">= 0.0.2"
 
-  tenant        = "ABC"
-  name          = "CON1"
-  contract      = "CON1"
-  tenant_source = "DEF"
+  tenant          = "ABC"
+  name            = "CON1"
+  source_tenant   = "DEF"
+  source_contract = "CON1"
 }
 
 ```
@@ -41,8 +42,8 @@ module "aci_imported_contract" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_tenant"></a> [tenant](#input\_tenant) | Tenant name. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Imported contract name. | `string` | n/a | yes |
-| <a name="input_contract"></a> [contract](#input\_contract) | Source contract name. | `string` | n/a | yes |
-| <a name="input_tenant_source"></a> [tenant\_source](#input\_tenant\_source) | Source Ccntract tenant name. | `string` | n/a | yes |
+| <a name="input_source_tenant"></a> [source\_tenant](#input\_source\_tenant) | Source contract tenant name. | `string` | n/a | yes |
+| <a name="input_source_contract"></a> [source\_contract](#input\_source\_contract) | Source contract name. | `string` | n/a | yes |
 
 ## Outputs
 

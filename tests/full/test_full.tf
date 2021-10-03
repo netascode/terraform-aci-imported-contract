@@ -19,10 +19,10 @@ resource "aci_rest" "fvTenant" {
 module "main" {
   source = "../.."
 
-  tenant        = aci_rest.fvTenant.content.name
-  name          = "CON1"
-  contract      = "CON1"
-  tenant_source = "DEF"
+  tenant          = aci_rest.fvTenant.content.name
+  name            = "CON1"
+  source_tenant   = "DEF"
+  source_contract = "CON1"
 }
 
 data "aci_rest" "vzCPIf" {
