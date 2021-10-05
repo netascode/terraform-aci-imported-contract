@@ -1,3 +1,7 @@
+## 0.0.3
+
+- Documenation updates
+
 ## 0.0.2
 
 - BREAKING CHANGE: rename contract variable to source_contract

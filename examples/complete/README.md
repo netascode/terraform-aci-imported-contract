@@ -13,7 +13,7 @@ Note that this example will create resources. Resources can be destroyed with `t
 
 ```hcl
 module "aci_imported_contract" {
-  source  = "netascode/imported_contract/aci"
+  source  = "netascode/imported-contract/aci"
   version = ">= 0.0.2"
 
   tenant          = "ABC"
