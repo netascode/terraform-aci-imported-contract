@@ -7,7 +7,7 @@ resource "aci_rest" "vzCPIf" {
 }
 
 resource "aci_rest" "vzRsIf" {
-  dn         = "${aci_rest.vzCPIf.id}/rsif"
+  dn         = "${aci_rest.vzCPIf.dn}/rsif"
   class_name = "vzRsIf"
   content = {
     tDn = "uni/tn-${var.source_tenant}/brc-${var.source_contract}"
