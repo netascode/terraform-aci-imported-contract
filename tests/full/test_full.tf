@@ -5,13 +5,13 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
 
-resource "aci_rest" "fvTenant" {
+resource "aci_rest_managed" "fvTenant" {
   dn         = "uni/tn-TF"
   class_name = "fvTenant"
 }
@@ -19,14 +19,14 @@ resource "aci_rest" "fvTenant" {
 module "main" {
   source = "../.."
 
-  tenant          = aci_rest.fvTenant.content.name
+  tenant          = aci_rest_managed.fvTenant.content.name
   name            = "CON1"
   source_tenant   = "DEF"
   source_contract = "CON1"
 }
 
-data "aci_rest" "vzCPIf" {
-  dn = "uni/tn-${aci_rest.fvTenant.content.name}/cif-${module.main.name}"
+data "aci_rest_managed" "vzCPIf" {
+  dn = "uni/tn-${aci_rest_managed.fvTenant.content.name}/cif-${module.main.name}"
 
   depends_on = [module.main]
 }
@@ -36,13 +36,13 @@ resource "test_assertions" "vzCPIf" {
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.vzCPIf.content.name
+    got         = data.aci_rest_managed.vzCPIf.content.name
     want        = module.main.name
   }
 }
 
-data "aci_rest" "vzRsIf" {
-  dn = "${data.aci_rest.vzCPIf.id}/rsif"
+data "aci_rest_managed" "vzRsIf" {
+  dn = "${data.aci_rest_managed.vzCPIf.id}/rsif"
 
   depends_on = [module.main]
 }
@@ -52,7 +52,7 @@ resource "test_assertions" "vzRsIf" {
 
   equal "tDn" {
     description = "tDn"
-    got         = data.aci_rest.vzRsIf.content.tDn
+    got         = data.aci_rest_managed.vzRsIf.content.tDn
     want        = "uni/tn-DEF/brc-CON1"
   }
 }
